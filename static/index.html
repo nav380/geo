@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Selector — AI Location Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- LEFT: survey panel -->
+  <aside class="panel">
+    <header class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="28" height="28">
+          <circle cx="20" cy="16" r="7.5" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M20 23.5 C20 30, 12 32, 12 32" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M20 23.5 C20 30, 28 32, 28 32" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="20" cy="16" r="2.5" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Site Selector</h1>
+        <p class="tagline">AI-assisted location intelligence, Gemini &amp; Google Maps</p>
+      </div>
+    </header>
+
+    <section class="query-block">
+      <label for="queryInput">Describe what you're looking to place, and where</label>
+      <textarea id="queryInput" rows="3" placeholder="e.g. Find the best spot for a specialty coffee shop near downtown Austin, close to offices but away from other cafes"></textarea>
+      <button id="analyzeBtn" class="primary-btn">Find the best site</button>
+      <p id="statusLine" class="status-line" aria-live="polite"></p>
+    </section>
+
+    <section id="resultsSection" class="results hidden">
+
+      <div class="section-block">
+        <h2>Reading</h2>
+        <dl id="projectFacts" class="fact-list"></dl>
+      </div>
+
+      <div class="section-block">
+        <h2>Ranked candidates</h2>
+        <ol id="candidateList" class="candidate-list"></ol>
+      </div>
+
+      <div class="section-block">
+        <h2>Report</h2>
+        <div id="reportBody" class="report-body"></div>
+      </div>
+
+      <div id="warningsBlock" class="warnings hidden"></div>
+    </section>
+
+    <section id="emptyState" class="empty-state">
+      <p>No survey run yet. Enter a request above — the pipeline will read your intent, plan its research, pull live map &amp; places data, score candidate sites, and hand back a ranked report with the best location plotted on the map.</p>
+    </section>
+
+  </aside>
+
+  <!-- RIGHT: map -->
+  <main class="map-pane">
+    <div id="map"></div>
+    <div id="loadingOverlay" class="loading-overlay hidden">
+      <div class="loading-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <p id="loadingText">Reading your request…</p>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+  window.__initMap = function () {
+    window.dispatchEvent(new Event('google-maps-ready'));
+  };
+</script>
+<script src="/static/app.js"></script>
+</body>
+</html>
